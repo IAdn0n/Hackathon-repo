@@ -17,6 +17,7 @@ public class Account {
     private String institutionArName;
     private String institutionEnTradename;
     private String institutionArTradename;
+    private Balance balance;
     
     public String getAccountId() {
         return accountId;
@@ -60,6 +61,12 @@ public class Account {
     public void setInstitutionArTradename(String institutionArTradename) {
         this.institutionArTradename = institutionArTradename;
     }
+    public Balance getBalance() {
+        return balance;
+    }
+    public void setBalance(Balance balance) {
+        this.balance = balance;
+    }
 
 
     public static List<Account> getAccountsById(String userId){
@@ -96,6 +103,7 @@ public class Account {
                 acc.setInstitutionEnTradename(institutionNode.path("name").path("tradeName").path("enName").asText());
                 acc.setInstitutionArTradename(institutionNode.path("name").path("tradeName").path("arName").asText());
             
+                acc.setBalance(Balance.getBalance(acc.getAccountId()));
                 accounts.add(acc);
             }
             

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Branches List</title>
+</head>
+<body>
+
+<h2>Branches</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Branch ID</th>
+            <th>Branch Type</th>
+            <th>Branch EN Name</th>
+            <th>City</th>
+            <th>Institution EN Name</th>
+            <th>Is Available</th>
+            <th>Working Days</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="branch : ${branches}">
+            <td th:text="${branch.branchId}"></td>
+            <td th:text="${branch.branchType}"></td>
+            <td th:text="${branch.branchInfo.name.enName}"></td>
+            <td th:text="${branch.branchInfo.address.city}"></td>
+            <td th:text="${branch.institutionBasicInfo.name.enName}"></td>
+            <td th:text="${branch.available}"></td>
+            <td>
+                <ul>
+                    <li th:if="${branch.workingHours.sunday != null}" 
+                        th:text="'Sunday: ' + (branch.workingHours.sunday.workingDay ? 'Open' : 'Closed')"></li>
+                    <li th:if="${branch.workingHours.monday != null}" 
+                        th:text="'Monday: ' + (branch.workingHours.monday.workingDay ? 'Open' : 'Closed')"></li>
+                    <li th:if="${branch.workingHours.tuesday != null}" 
+                        th:text="'Tuesday: ' + (branch.workingHours.tuesday.workingDay ? 'Open' : 'Closed')"></li>
+                    <li th:if="${branch.workingHours.wednesday != null}" 
+                        th:text="'Wednesday: ' + (branch.workingHours.wednesday.workingDay ? 'Open' : 'Closed')"></li>
+                    <li th:if="${branch.workingHours.thursday != null}" 
+                        th:text="'Thursday: ' + (branch.workingHours.thursday.workingDay ? 'Open' : 'Closed')"></li>
+                    <li th:if="${branch.workingHours.friday != null}" 
+                        th:text="'Friday: ' + (branch.workingHours.friday.workingDay ? 'Open' : 'Closed')"></li>
+                    <li th:if="${branch.workingHours.saturday != null}" 
+                        th:text="'Saturday: ' + (branch.workingHours.saturday.workingDay ? 'Open' : 'Closed')"></li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<h3>Navigation</h3>
+
+<ul>
+    <li><a th:href="@{'/accounts/' + ${user.userId}}">My Accounts</a></li>
+    <li><a th:href="@{/branches}">Branches</a></li>
+    <li><a th:href="@{/FX}">Foreign Exchange</a></li>
+    <li><a th:href="@{/loans}">Loans</a></li>
+    <li><a th:href="@{/products}">Products</a></li>
+    <li><a th:href="@{'/offers/' + ${user.userId}}">Offers</a></li>
+</ul>

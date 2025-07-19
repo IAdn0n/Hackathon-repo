@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ar" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابك</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-wallet"></i>
+                <span>حسابك</span>
+            </div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">جاري التحميل...</div>
+        </div>
+    </div>
+    <!-- Navigation Header - Fixed Top -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="goToHomepage()" style="cursor: pointer;">
+                <i class="fas fa-wallet"></i>
+                <span>حسابك</span>
+            </div>
+            <nav class="nav-menu">
+                <div class="guest-nav" id="guestNav" style="display: none;">
+                    <a href="/login" class="guest-nav" id="guestNav">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </a>
+                    <button class="nav-btn primary" onclick="showSignup()" id="signupNavBtn">
+                        <i class="fas fa-user-plus"></i>
+                        إنشاء حساب
+                    </button>
+                </div>
+                <div class="user-nav" id="userNav" style="display: none;">
+                    <button class="nav-btn icon-btn" onclick="toggleNotifications()" id="notificationsBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationBadge">3</span>
+                    </button>
+                    <button class="nav-btn icon-btn" onclick="toggleValueVisibility()" id="hideValuesBtn" title="إخفاء/إظهار القيم">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                    <button class="nav-btn" onclick="showAddBankAccount()">
+                        <i class="fas fa-plus"></i>
+                        إضافة حساب بنكي
+                    </button>
+                    <button class="nav-btn" onclick="showSettings()">
+                        <i class="fas fa-user-cog"></i>
+                        الإعدادات
+                    </button>
+                    <button class="nav-btn danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <h3>الإشعارات</h3>
+            <button class="close-btn" onclick="toggleNotifications()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notifications-list" id="notificationsList">
+        </div>
+    </div>
+    <main>
+        <section th:replace="~{::section}"></section>
+    </main>
+    <!-- Modals and overlays can be included here as fragments if needed -->
+</body>
+</html>
+
+    {% block content %}{% endblock %}
+
+    <!-- Modals and overlays (addBankModal, addGoalModal, loanApplicationModal, settingsModal, successMessage, errorMessage, loadingOverlay) -->
+    <!-- ...existing code for modals and overlays from index.html... -->
+</body>
+</html>

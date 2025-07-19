@@ -1,0 +1,50 @@
+<h2>Accounts</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Account ID</th>
+            <th>IBAN</th>
+            <th>Institution Address</th>
+            <th>Institution EN Name</th>
+            <th>Institution AR Name</th>
+            <th>Institution EN Tradename</th>
+            <th>Institution AR Tradename</th>
+            <th>Available Balance</th>
+            <th>Current Balance</th>
+            <th>Credit Limit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.accountId}">1</td>
+            <td th:text="${account.ibanAddress}">1</td>
+            <td th:text="${account.institutionAddress}">1</td>
+            <td th:text="${account.institutionEnName}">1</td>
+            <td th:text="${account.institutionArName}">1</td>
+            <td th:text="${account.institutionEnTradename}">1</td>
+            <td th:text="${account.institutionArTradename}">1</td>
+            <td th:text="${account.balance.availableBalance}">1</td>
+            <td th:text="${account.balance.currentBalance}">1</td>
+            <td th:text="${account.balance.creditLimit}">1</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+
+<h3>Navigation</h3>
+
+<ul>
+    <li><a th:href="@{'/accounts/' + ${user.userId}}">My Accounts</a></li>
+    <li><a th:href="@{/branches}">Branches</a></li>
+    <li><a th:href="@{/FX}">Foreign Exchange</a></li>
+    <li><a th:href="@{/loans}">Loans</a></li>
+    <li><a th:href="@{/products}">Products</a></li>
+    <li><a th:href="@{'/offers/' + ${user.userId}}">Offers</a></li>
+</ul>
+
+
+</body>
+</html>

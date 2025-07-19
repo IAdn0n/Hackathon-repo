@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابك - Hasabak | منصة مالية أردنية موحدة</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Financial Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts for Arabic Support -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-wallet"></i>
+                <span>حسابك</span>
+            </div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">جاري التحميل...</div>
+        </div>
+    </div>
+
+    <!-- Navigation Header - Fixed Top -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="goToHomepage()" style="cursor: pointer;">
+                <i class="fas fa-wallet"></i>
+                <span>حسابك</span>
+            </div>
+            <nav class="nav-menu">
+                <!-- Guest Navigation - Hidden on Landing Page -->
+                <div class="guest-nav" id="guestNav" style="display: none;">
+                    <a href="/login" class="guest-nav" id="guestNav">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </a>
+                    <!--<button class="nav-btn" onclick="showLogin()" id="loginNavBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </button>--->
+                    <button class="nav-btn primary" onclick="showSignup()" id="signupNavBtn">
+                        <i class="fas fa-user-plus"></i>
+                        إنشاء حساب
+                    </button>
+                </div>
+                
+                <!-- User Navigation - Updated with direct buttons -->
+                <div class="user-nav" id="userNav" style="display: none;">
+                    <button class="nav-btn icon-btn" onclick="toggleNotifications()" id="notificationsBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationBadge">3</span>
+                    </button>
+                    <button class="nav-btn icon-btn" onclick="toggleValueVisibility()" id="hideValuesBtn" title="إخفاء/إظهار القيم">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                    <button class="nav-btn" onclick="showAddBankAccount()">
+                        <i class="fas fa-plus"></i>
+                        إضافة حساب بنكي
+                    </button>
+                    <button class="nav-btn" onclick="showSettings()">
+                        <i class="fas fa-user-cog"></i>
+                        الإعدادات
+                    </button>
+                    <button class="nav-btn danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notifications Panel -->
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <h3>الإشعارات</h3>
+            <button class="close-btn" onclick="toggleNotifications()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notifications-list" id="notificationsList">
+            <!-- Notifications will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Landing Page -->
+    <section class="landing" id="landingPage">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>منصة مالية أردنية موحدة</span>
+                </div>
+                <h1 class="hero-title">إدارة أموالك بذكاء مع <span class="highlight">حسابك</span></h1>
+                <p class="hero-description">
+                    منصة متطورة لإدارة جميع حساباتك المصرفية في مكان واحد. 
+                    تحليل مالي ذكي، تتبع المصروفات، وعروض قروض حصرية من البنوك الأردنية.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn primary large">
+                        <i class="fas fa-rocket"></i>
+                        ابدأ الآن 
+                    </a>
+                    <a href="/login" class="btn secondary large">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </a>
+                    <!--</button>-->
+
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">19+</div>
+                        <div class="stat-label">بنك أردني</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">آمان وحماية</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">دعم فني</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card main-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>نظرة عامة</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="balance-display">
+                            <div class="balance-amount">12,450 دينار</div>
+                            <div class="balance-change positive">+2.5%</div>
+                        </div>
+                        <div class="mini-chart">
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 40%"></div>
+                                <div class="bar" style="height: 60%"></div>
+                                <div class="bar" style="height: 80%"></div>
+                                <div class="bar active" style="height: 100%"></div>
+                                <div class="bar" style="height: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-card secondary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-text">حماية عالية</div>
+                </div>
+                <div class="hero-card tertiary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="card-text">سهولة الاستخدام</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features-section">
+            <div class="container">
+                <h2 class="section-title">لماذا تختار حسابك؟</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>إدارة موحدة</h3>
+                        <p>جميع حساباتك المصرفية في مكان واحد</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>تحليل ذكي</h3>
+                        <p>تحليل مفصل لمصروفاتك وأهدافك المالية</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3>عروض قروض</h3>
+                        <p>أفضل عروض القروض من البنوك الأردنية</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>تنبيهات ذكية</h3>
+                        <p>إشعارات فورية لتتبع إنفاقك وميزانيتك</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Page -->
+    <section class="auth-page" id="loginPage" style="display: none;">
+        <div class="auth-container centered">
+            <div class="auth-header">
+                <h2>تسجيل الدخول</h2>
+                <p>أهلاً بك مرة أخرى في منصة حسابك</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="loginUsername">اسم المستخدم</label>
+                    <div class="input-group">
+                        <input type="text" id="loginUsername" name="username" required placeholder="أدخل اسم المستخدم">
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">كلمة المرور</label>
+                    <div class="input-group">
+                        <input type="password" id="loginPassword" name="password" required placeholder="أدخل كلمة المرور">
+                        <i class="fas fa-lock input-icon"></i>
+                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn primary full-width" id="loginSubmitBtn">
+                    <span class="btn-text">تسجيل الدخول</span>
+                    <div class="btn-loader" style="display: none;">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+                <div class="auth-footer">
+                    <p>ليس لديك حساب؟ <a href="#" onclick="showSignup()">إنشاء حساب جديد</a></p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Sign Up Page -->
+    <section class="auth-page" id="signupPage" style="display: none;">
+        <div class="auth-container centered">
+            <div class="auth-header">
+                <h2>إنشاء حساب جديد</h2>
+                <p>انضم إلى منصة حسابك لإدارة أموالك بذكاء</p>
+            </div>
+            
+            <!-- Step 1: User Information -->
+            <div class="auth-step" id="signupStep1">
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signupPhone">رقم الهاتف</label>
+                        <div class="input-group">
+                            <input type="tel" id="signupPhone" name="phone" required placeholder="07X XXX XXXX">
+                            <i class="fas fa-phone input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <input type="email" id="signupEmail" name="email" required placeholder="example@email.com">
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">كلمة المرور</label>
+                        <div class="input-group">
+                            <input type="password" id="signupPassword" name="password" required placeholder="أدخل كلمة مرور قوية">
+                            <i class="fas fa-lock input-icon"></i>
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupConfirmPassword">تأكيد كلمة المرور</label>
+                            <div class="input-group">
+                                <input type="password" id="signupConfirmPassword" name="confirm_password" required placeholder="أعد إدخال كلمة المرور">
+                                <i class="fas fa-lock input-icon"></i>
+                                <button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupUsername">اسم المستخدم</label>
+                        <div class="input-group">
+                            <input type="text" id="signupUsername" name="username" required placeholder="أدخل اسم المستخدم">
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn primary full-width" id="signupSubmitBtn">
+                        <span class="btn-text">المتابعة</span>
+                        <div class="btn-loader" style="display: none;">
+                            <div class="spinner"></div>
+                        </div>
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Step 2: OTP Verification -->
+            <div class="auth-step" id="signupStep2" style="display: none;">
+                <div class="auth-form">
+                    <div class="otp-selection">
+                        <h3>تفعيل الحساب</h3>
+                        <p>كيف تريد تفعيل حسابك؟</p>
+                        <div class="otp-options">
+                            <button class="otp-option" onclick="selectOTPMethod('phone')">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>رسالة نصية</span>
+                            </button>
+                            <button class="otp-option" onclick="selectOTPMethod('email')">
+                                <i class="fas fa-envelope"></i>
+                                <span>البريد الإلكتروني</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="otp-verification" id="otpVerification" style="display: none;">
+                        <h3>أدخل رمز التحقق</h3>
+                        <p id="otpMessage">تم إرسال رمز التحقق إلى رقم هاتفك</p>
+                        <div class="otp-input-group">
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 0)">
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 1)">
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 2)">
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 3)">
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 4)">
+                            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 5)">
+                        </div>
+                        <div class="otp-timer" id="otpTimer">
+                            <i class="fas fa-clock"></i>
+                            <span id="timerText">02:00</span>
+                        </div>
+                        <button class="btn primary full-width" onclick="verifyOTP()">
+                            تحقق من الرمز
+                        </button>
+                        <button class="btn secondary full-width" onclick="resendOTP()" style="margin-top: 1rem;">
+                            إعادة إرسال الرمز
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 3: Bank Account Setup -->
+            <div class="auth-step" id="signupStep3" style="display: none;">
+                <div class="auth-form">
+                    <h3>إضافة حساباتك المصرفية</h3>
+                    <p>أضف حساباتك المصرفية لبدء إدارة أموالك</p>
+                    
+                    <div class="bank-selection">
+                        <div class="form-group">
+                            <label for="bankSelect">اختر البنك</label>
+                            <select id="bankSelect" class="form-control">
+                                <option value="">اختر بنكك</option>
+                                <option value="البنك الأهلي الأردني">البنك الأهلي الأردني</option>
+                                <option value="البنك العربي">البنك العربي</option>
+                                <option value="بنك ABC الأردن">بنك ABC الأردن</option>
+                                <option value="بنك AJIB">بنك AJIB</option>
+                                <option value="البنك الأردني الكويتي">البنك الأردني الكويتي</option>
+                                <option value="البنك العربي الإسلامي الدولي">البنك العربي الإسلامي الدولي</option>
+                                <option value="بنك القاهرة عمان">بنك القاهرة عمان</option>
+                                <option value="CITI بنك الأردن">CITI بنك الأردن</option>
+                                <option value="كابيتال بنك">كابيتال بنك</option>
+                                <option value="بنك الإسكان للتجارة والتمويل">بنك الإسكان للتجارة والتمويل</option>
+                                <option value="صفوة الإسلامي">صفوة الإسلامي</option>
+                                <option value="البنك التجاري الأردني">البنك التجاري الأردني</option>
+                                <option value="البنك الإسلامي الأردني">البنك الإسلامي الأردني</option>
+                                <option value="البنك الاستثماري">البنك الاستثماري</option>
+                                <option value="البنك الراجحي">البنك الراجحي</option>
+                                <option value="بنك الإتحاد">بنك الإتحاد</option>
+                                <option value="البنك اللبناني الفرنسي">البنك اللبناني الفرنسي</option>
+                                <option value="بنك المؤسسة العربية المصرفية">بنك المؤسسة العربية المصرفية</option>
+                                <option value="البنك الدولي العربي">البنك الدولي العربي</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn secondary full-width" onclick="addBankAccount()">
+                            <i class="fas fa-plus"></i>
+                            إضافة البنك
+                        </button>
+                    </div>
+                    
+                    <div class="added-banks" id="addedBanks">
+                        <!-- Added banks will appear here -->
+                    </div>
+                    
+                    <div class="signup-actions">
+                        <button class="btn primary full-width" onclick="completeSignup()">
+                            <i class="fas fa-check"></i>
+                            إكمال التسجيل
+                        </button>
+                        <button class="btn secondary full-width" onclick="skipBankSetup()" style="margin-top: 1rem;">
+                            تخطي هذه الخطوة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="dashboard" id="dashboardPage" style="display: none;">
+        <div class="dashboard-container">
+            <!-- Enhanced Dashboard Navigation -->
+            <div class="dashboard-nav">
+                <button class="dashboard-nav-btn active" onclick="showDashboardSection('overview')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    نظرة عامة
+                </button>
+                <button class="dashboard-nav-btn" onclick="showDashboardSection('analytics')">
+                    <i class="fas fa-chart-pie"></i>
+                    التحليلات
+                </button>
+                <button class="dashboard-nav-btn" onclick="showDashboardSection('transactions')">
+                    <i class="fas fa-exchange-alt"></i>
+                    المعاملات
+                </button>
+                <button class="dashboard-nav-btn" onclick="showDashboardSection('banks')">
+                    <i class="fas fa-university"></i>
+                    البنوك
+                </button>
+                <button class="dashboard-nav-btn" onclick="showDashboardSection('loans')">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    القروض والعروض
+                </button>
+                <button class="dashboard-nav-btn" onclick="showDashboardSection('branches')">
+                    <i class="fas fa-map-marker-alt"></i>
+                    الفروع
+                </button>
+                <button class="dashboard-nav-btn" onclick="showDashboardSection('currencies')">
+                    <i class="fas fa-dollar-sign"></i>
+                    أسعار العملات
+                </button>
+            </div>
+
+            <!-- Overview Section -->
+            <div class="dashboard-section" id="overviewSection">
+                <!-- Balance Overview -->
+                <div class="balance-overview">
+                    <div class="balance-card main-balance">
+                        <div class="balance-header">
+                            <h3>إجمالي الرصيد</h3>
+                            <button class="refresh-btn" onclick="refreshBalance()">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="balance-amount" id="totalBalance">
+                            <span class="amount">12,450.75</span>
+                            <span class="currency">دينار</span>
+                        </div>
+                        <div class="balance-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+2.5% من الشهر الماضي</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card">
+                        <div class="balance-header">
+                            <h4>الإيرادات الشهرية</h4>
+                            <i class="fas fa-arrow-down text-success"></i>
+                        </div>
+                        <div class="balance-amount">
+                            <span class="amount">1,200.00</span>
+                            <span class="currency">دينار</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card">
+                        <div class="balance-header">
+                            <h4>المصروفات الشهرية</h4>
+                            <i class="fas fa-arrow-up text-danger"></i>
+                        </div>
+                        <div class="balance-amount">
+                            <span class="amount">865.25</span>
+                            <span class="currency">دينار</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>عدد الحسابات</h4>
+                            <span class="stat-number">3</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>معاملات هذا الشهر</h4>
+                            <span class="stat-number">47</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h4>الادخار الشهري</h4>
+                            <span class="stat-number">334.75 دينار</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="recent-transactions">
+                    <div class="section-header">
+                        <h3>المعاملات الأخيرة</h3>
+                        <button class="view-all-btn" onclick="showDashboardSection('transactions')">
+                            عرض الكل
+                        </button>
+                    </div>
+                    <div class="transactions-list" id="recentTransactionsList">
+                        <!-- Recent transactions will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Savings Goals -->
+                <div class="savings-goals">
+                    <div class="section-header">
+                        <h3>أهداف الادخار</h3>
+                        <button class="add-goal-btn" onclick="showAddGoalForm()">
+                            <i class="fas fa-plus"></i>
+                            إضافة هدف
+                        </button>
+                    </div>
+                    <div class="goals-grid" id="savingsGoalsList">
+                        <!-- Goals will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div class="dashboard-section" id="analyticsSection" style="display: none;">
+                <div class="analytics-container">
+                    <h2>التحليلات المالية</h2>
+                    
+                    <!-- Expense Analysis -->
+                    <div class="analytics-grid">
+                        <div class="analytics-card extra-large">
+                            <div class="card-header">
+                                <h3>توزيع المصروفات</h3>
+                                <div class="card-actions">
+                                    <button class="btn-icon" onclick="refreshExpenseChart()">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chart-container extra-large">
+                                <canvas id="expenseChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card large">
+                            <div class="card-header">
+                                <h3>الاتجاه الشهري</h3>
+                            </div>
+                            <div class="chart-container large">
+                                <canvas id="monthlyTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Budget Progress -->
+                    <div class="budget-progress">
+                        <h3>تقدم الميزانية الشهرية</h3>
+                        <div class="budget-categories" id="budgetCategories">
+                            <!-- Budget categories will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Expense Statistics -->
+                    <div class="expense-stats">
+                        <h3>إحصائيات المصروفات</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <h4>إجمالي الإنفاق الشهري</h4>
+                                <span class="stat-value">865.25 دينار</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>أعلى فئة صرف</h4>
+                                <span class="stat-value">طعام (285.50 دينار)</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>أقل فئة صرف</h4>
+                                <span class="stat-value">عناية شخصية (45.75 دينار)</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>عدد المعاملات</h4>
+                                <span class="stat-value">47 معاملة</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>مقارنة بالشهر السابق</h4>
+                                <span class="stat-value positive">-12.5%</span>
+                            </div>
+                            <div class="stat-item">
+                                <h4>متوسط المعاملة</h4>
+                                <span class="stat-value">18.41 دينار</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions Section -->
+            <div class="dashboard-section" id="transactionsSection" style="display: none;">
+                <div class="transactions-container">
+                    <div class="section-header">
+                        <h2>جميع المعاملات</h2>
+                        <div class="transaction-filters">
+                            <select id="transactionFilter" onchange="filterTransactions()">
+                                <option value="all">جميع المعاملات</option>
+                                <option value="income">الإيرادات</option>
+                                <option value="expense">المصروفات</option>
+                            </select>
+                            <select id="categoryFilter" onchange="filterTransactions()">
+                                <option value="all">جميع الفئات</option>
+                                <option value="طعام">طعام</option>
+                                <option value="مواصلات">مواصلات</option>
+                                <option value="صحة">صحة</option>
+                                <option value="تسوق">تسوق</option>
+                                <option value="فواتير">فواتير</option>
+                                <option value="ترفيه">ترفيه</option>
+                                <option value="تعليم">تعليم</option>
+                                <option value="عناية شخصية">عناية شخصية</option>
+                                <option value="راتب">راتب</option>
+                                <option value="تحويل">تحويل</option>
+                                <option value="استثمار">استثمار</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="transactions-table">
+                        <table id="transactionsTable">
+                            <thead>
+                                <tr>
+                                    <th>التاريخ</th>
+                                    <th>الوصف</th>
+                                    <th>الفئة</th>
+                                    <th>الحساب</th>
+                                    <th>المبلغ</th>
+                                    <th>الرصيد</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionsTableBody">
+                                <!-- Transactions will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banks Section -->
+            <div class="dashboard-section" id="banksSection" style="display: none;">
+                <div class="banks-container">
+                    <div class="section-header">
+                        <h2>البنوك والحسابات</h2>
+                        <button class="btn primary" onclick="showAddBankAccount()">
+                            <i class="fas fa-plus"></i>
+                            إضافة حساب بنكي
+                        </button>
+                    </div>
+                    
+                    <div class="banks-grid" id="banksGrid">
+                        <!-- Banks will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loans Section -->
+            <div class="dashboard-section" id="loansSection" style="display: none;">
+                <div class="loans-container">
+                    <div class="section-header">
+                        <h2>القروض والعروض</h2>
+                        <div class="loan-tabs">
+                            <button class="tab-btn active" onclick="showLoanTab('offers')">
+                                <i class="fas fa-tags"></i>
+                                العروض المتاحة
+                            </button>
+                            <button class="tab-btn" onclick="showLoanTab('applications')">
+                                <i class="fas fa-file-alt"></i>
+                                طلباتي
+                            </button>
+                            <button class="tab-btn" onclick="showLoanTab('calculator')">
+                                <i class="fas fa-calculator"></i>
+                                حاسبة القروض
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Loan Offers Tab -->
+                    <div class="loan-tab-content" id="loanOffersTab">
+                        <div class="loan-offers-grid" id="loanOffersGrid">
+                            <!-- Loan offers will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Loan Applications Tab -->
+                    <div class="loan-tab-content" id="loanApplicationsTab" style="display: none;">
+                        <div class="loan-applications-list" id="loanApplicationsList">
+                            <!-- Loan applications will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Loan Calculator Tab -->
+                    <div class="loan-tab-content" id="loanCalculatorTab" style="display: none;">
+                        <div class="loan-calculator">
+                            <div class="calculator-header">
+                                <h3><i class="fas fa-calculator"></i> حاسبة القروض المتقدمة</h3>
+                                <p>احسب القسط الشهري والتكلفة الإجمالية لقرضك</p>
+                            </div>
+                            
+                            <div class="calculator-container">
+                                <div class="calculator-inputs">
+                                    <div class="input-card">
+                                        <div class="form-group">
+                                            <label for="loanAmount">
+                                                <i class="fas fa-coins"></i>
+                                                مبلغ القرض (دينار)
+                                            </label>
+                                            <div class="input-with-slider">
+                                                <input type="number" id="loanAmount" value="10000" min="1000" max="100000" step="500" oninput="updateFromInput('loanAmount'); calculateLoan()">
+                                                <input type="range" id="loanAmountSlider" min="1000" max="100000" step="500" value="10000" oninput="updateFromSlider('loanAmount'); calculateLoan()">
+                                                <div class="slider-labels">
+                                                    <span>1,000</span>
+                                                    <span>100,000</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-card">
+                                        <div class="form-group">
+                                            <label for="loanDuration">
+                                                <i class="fas fa-calendar-alt"></i>
+                                                مدة القرض (أشهر)
+                                            </label>
+                                            <div class="input-with-slider">
+                                                <input type="number" id="loanDuration" value="24" min="12" max="60" step="6" oninput="updateFromInput('loanDuration'); calculateLoan()">
+                                                <input type="range" id="loanDurationSlider" min="12" max="60" step="6" value="24" oninput="updateFromSlider('loanDuration'); calculateLoan()">
+                                                <div class="slider-labels">
+                                                    <span>12 شهر</span>
+                                                    <span>60 شهر</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-card">
+                                        <div class="form-group">
+                                            <label for="interestRate">
+                                                <i class="fas fa-percentage"></i>
+                                                نسبة الفائدة السنوية (%)
+                                            </label>
+                                            <div class="input-with-slider">
+                                                <input type="number" id="interestRate" value="4.5" min="2" max="15" step="0.1" oninput="updateFromInput('interestRate'); calculateLoan()">
+                                                <input type="range" id="interestRateSlider" min="2" max="15" step="0.1" value="4.5" oninput="updateFromSlider('interestRate'); calculateLoan()">
+                                                <div class="slider-labels">
+                                                    <span>2%</span>
+                                                    <span>15%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="calculator-results">
+                                    <div class="results-header">
+                                        <h4><i class="fas fa-chart-line"></i> نتائج الحساب</h4>
+                                    </div>
+                                    
+                                    <div class="calculation-results" id="calculationResults">
+                                        <div class="result-card primary">
+                                            <div class="result-icon">
+                                                <i class="fas fa-money-bill"></i>
+                                            </div>
+                                            <div class="result-content">
+                                                <div class="result-label">القسط الشهري</div>
+                                                <div class="result-value" id="monthlyPayment">0.00 دينار</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="result-card">
+                                            <div class="result-icon">
+                                                <i class="fas fa-calculator"></i>
+                                            </div>
+                                            <div class="result-content">
+                                                <div class="result-label">إجمالي المبلغ المدفوع</div>
+                                                <div class="result-value" id="totalPayment">0.00 دينار</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="result-card warning">
+                                            <div class="result-icon">
+                                                <i class="fas fa-percent"></i>
+                                            </div>
+                                            <div class="result-content">
+                                                <div class="result-label">إجمالي الفوائد</div>
+                                                <div class="result-value" id="totalInterest">0.00 دينار</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="result-summary">
+                                            <div class="summary-item">
+                                                <span class="summary-label">نسبة الفوائد من القرض:</span>
+                                                <span class="summary-value" id="interestPercentage">0%</span>
+                                            </div>
+                                            <div class="summary-item">
+                                                <span class="summary-label">مدة السداد:</span>
+                                                <span class="summary-value" id="paymentDuration">0 سنة</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quick-actions">
+                                        <button class="btn secondary" onclick="resetCalculator()">
+                                            <i class="fas fa-undo"></i>
+                                            إعادة تعيين
+                                        </button>
+                                        <button class="btn primary" onclick="applyForCalculatedLoan()">
+                                            <i class="fas fa-paper-plane"></i>
+                                            تقديم طلب بهذا المبلغ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="loan-tips">
+                                <div class="tip-card">
+                                    <div class="tip-icon">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div class="tip-content">
+                                        <h5>نصائح للحصول على أفضل قرض</h5>
+                                        <ul>
+                                            <li>قارن أسعار الفوائد من عدة بنوك</li>
+                                            <li>اختر مدة سداد مناسبة لدخلك</li>
+                                            <li>لا تتجاوز 30% من راتبك الشهري</li>
+                                            <li>اقرأ شروط القرض بعناية</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branches Section -->
+            <div class="dashboard-section" id="branchesSection" style="display: none;">
+                <div class="branches-container">
+                    <div class="section-header">
+                        <h2>فروع البنوك</h2>
+                        <p>مواقع الفروع للبنوك المرتبطة بحسابك</p>
+                    </div>
+
+                    <!-- Branches Grid -->
+                    <div class="branches-grid" id="branchesGrid">
+                        <!-- Branches will be loaded here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Currencies Section -->
+            <div class="dashboard-section" id="currenciesSection" style="display: none;">
+                <div class="currencies-container">
+                    <div class="section-header">
+                        <h2>أسعار العملات الأجنبية</h2>
+                        <button class="btn secondary" onclick="refreshCurrencyRates()">
+                            <i class="fas fa-sync-alt"></i>
+                            تحديث الأسعار
+                        </button>
+                    </div>
+
+                    <!-- Currency Converter -->
+                    <div class="currency-converter">
+                        <div class="converter-header">
+                            <h3><i class="fas fa-exchange-alt"></i> محول العملات</h3>
+                            <p>تحويل فوري بين العملات بأسعار السوق الحية</p>
+                        </div>
+                        
+                        <div class="converter-container">
+                            <div class="converter-row">
+                                <div class="currency-input">
+                                    <label>من</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="fromAmount" value="1" min="0" step="0.01" onkeypress="handleEnterKey(event)">
+                                        <select id="fromCurrency" onchange="updateConversionRate()">
+                                            <option value="JOD">دينار أردني (JOD)</option>
+                                            <option value="USD" selected>دولار أمريكي (USD)</option>
+                                            <option value="EUR">يورو (EUR)</option>
+                                            <option value="GBP">جنيه استرليني (GBP)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="swap-button">
+                                    <button class="btn-swap" onclick="swapCurrencies()">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </button>
+                                </div>
+
+                                <div class="currency-input">
+                                    <label>إلى</label>
+                                    <div class="input-wrapper">
+                                        <input type="number" id="toAmount" value="0.71" min="0" step="0.01" readonly>
+                                        <select id="toCurrency" onchange="updateConversionRate()">
+                                            <option value="JOD" selected>دينار أردني (JOD)</option>
+                                            <option value="USD">دولار أمريكي (USD)</option>
+                                            <option value="EUR">يورو (EUR)</option>
+                                            <option value="GBP">جنيه استرليني (GBP)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="convert-action">
+                                <button class="btn primary convert-btn" onclick="performCurrencyConversion()">
+                                    <i class="fas fa-calculator"></i>
+                                    تحويل العملة
+                                </button>
+                            </div>
+                            
+                            <div class="conversion-rate">
+                                <span id="conversionRate">1 USD = 0.71 JOD</span>
+                                <small id="lastUpdated">آخر تحديث: اليوم 14:30</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Exchange Rates -->
+                    <div class="exchange-rates">
+                        <div class="rates-header">
+                            <h3><i class="fas fa-chart-line"></i> أسعار الصرف الحية</h3>
+                            <div class="rate-filters">
+                                <button class="filter-btn active" onclick="filterCurrencies('all')">الكل</button>
+                                <button class="filter-btn" onclick="filterCurrencies('major')">عملات رئيسية</button>
+                            </div>
+                        </div>
+                        
+                        <div class="rates-grid" id="exchangeRatesGrid">
+                            <!-- Exchange rates will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Currency Charts -->
+                    <div class="currency-charts">
+                        <h3><i class="fas fa-chart-area"></i> اتجاهات العملات</h3>
+                        <div class="charts-container">
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h4>USD/JOD</h4>
+                                    <span class="chart-change positive">+0.12%</span>
+                                </div>
+                                <div class="mini-chart">
+                                    <canvas id="usdChart" width="200" height="100"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h4>EUR/JOD</h4>
+                                    <span class="chart-change negative">-0.08%</span>
+                                </div>
+                                <div class="mini-chart">
+                                    <canvas id="eurChart" width="200" height="100"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h4>GBP/JOD</h4>
+                                    <span class="chart-change positive">+0.05%</span>
+                                </div>
+                                <div class="mini-chart">
+                                    <canvas id="gbpChart" width="200" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Currency News & Alerts -->
+                    <div class="currency-news">
+                        <div class="news-section">
+                            <h3><i class="fas fa-newspaper"></i> أخبار العملات</h3>
+                            <div class="news-list" id="currencyNews">
+                                <div class="news-item">
+                                    <div class="news-icon">
+                                        <i class="fas fa-arrow-up text-success"></i>
+                                    </div>
+                                    <div class="news-content">
+                                        <h5>الدولار الأمريكي يرتفع مقابل الدينار</h5>
+                                        <p>ارتفع سعر الدولار بنسبة 0.12% خلال الساعة الماضية</p>
+                                        <small>منذ 15 دقيقة</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="news-item">
+                                    <div class="news-icon">
+                                        <i class="fas fa-arrow-down text-danger"></i>
+                                    </div>
+                                    <div class="news-content">
+                                        <h5>اليورو يتراجع أمام العملات الرئيسية</h5>
+                                        <p>انخفض اليورو بنسبة 0.08% وسط مخاوف اقتصادية</p>
+                                        <small>منذ 45 دقيقة</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="news-item">
+                                    <div class="news-icon">
+                                        <i class="fas fa-info-circle text-info"></i>
+                                    </div>
+                                    <div class="news-content">
+                                        <h5>البنك المركزي الأردني يثبت أسعار الفائدة</h5>
+                                        <p>قرار بالإبقاء على أسعار الفائدة دون تغيير</p>
+                                        <small>منذ ساعتين</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alerts-section">
+                            <h3><i class="fas fa-bell"></i> تنبيهات الأسعار</h3>
+                            <div class="alert-setup">
+                                <p>احصل على تنبيهات عند وصول العملة للسعر المطلوب</p>
+                                <button class="btn primary" onclick="setupPriceAlert()">
+                                    <i class="fas fa-plus"></i>
+                                    إضافة تنبيه
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Bank Account Modal -->
+    <div class="modal" id="addBankModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إضافة حساب بنكي</h3>
+                <button class="close-btn" onclick="closeModal('addBankModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addBankForm">
+                    <div class="form-group">
+                        <label for="modalBankSelect">اختر البنك</label>
+                        <select id="modalBankSelect" class="form-control" required>
+                            <option value="">اختر بنكك</option>
+                            <option value="البنك الأهلي الأردني">البنك الأهلي الأردني</option>
+                            <option value="البنك العربي">البنك العربي</option>
+                            <option value="بنك ABC الأردن">بنك ABC الأردن</option>
+                            <option value="بنك AJIB">بنك AJIB</option>
+                            <option value="البنك الأردني الكويتي">البنك الأردني الكويتي</option>
+                            <option value="البنك العربي الإسلامي الدولي">البنك العربي الإسلامي الدولي</option>
+                            <option value="بنك القاهرة عمان">بنك القاهرة عمان</option>
+                            <option value="CITI بنك الأردن">CITI بنك الأردن</option>
+                            <option value="كابيتال بنك">كابيتال بنك</option>
+                            <option value="بنك الإسكان للتجارة والتمويل">بنك الإسكان للتجارة والتمويل</option>
+                            <option value="صفوة الإسلامي">صفوة الإسلامي</option>
+                            <option value="البنك التجاري الأردني">البنك التجاري الأردني</option>
+                            <option value="البنك الإسلامي الأردني">البنك الإسلامي الأردني</option>
+                            <option value="البنك الاستثماري">البنك الاستثماري</option>
+                            <option value="البنك الراجحي">البنك الراجحي</option>
+                            <option value="بنك الإتحاد">بنك الإتحاد</option>
+                            <option value="البنك اللبناني الفرنسي">البنك اللبناني الفرنسي</option>
+                            <option value="بنك المؤسسة العربية المصرفية">بنك المؤسسة العربية المصرفية</option>
+                            <option value="البنك الدولي العربي">البنك الدولي العربي</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-info">
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i>
+                            <p>سيتم ربط حسابك البنكي تلقائياً وسحب البيانات الأساسية بأمان</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-plus"></i>
+                            إضافة الحساب
+                        </button>
+                        <button type="button" class="btn secondary" onclick="closeModal('addBankModal')">
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Goal Modal -->
+    <div class="modal" id="addGoalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إضافة هدف ادخار</h3>
+                <button class="close-btn" onclick="closeModal('addGoalModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addGoalForm">
+                    <div class="form-group">
+                        <label for="goalName">اسم الهدف</label>
+                        <div class="input-group">
+                            <input type="text" id="goalName" placeholder="مثال: شراء سيارة" required>
+                            <i class="fas fa-target input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goalAmount">المبلغ المطلوب (دينار)</label>
+                        <div class="input-group">
+                            <input type="number" id="goalAmount" placeholder="5000" min="100" step="10" required>
+                            <i class="fas fa-coins input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goalCurrentAmount">المبلغ الحالي (دينار)</label>
+                        <div class="input-group">
+                            <input type="number" id="goalCurrentAmount" placeholder="1000" min="0" step="10" required>
+                            <i class="fas fa-piggy-bank input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goalTargetDate">التاريخ المستهدف</label>
+                        <div class="input-group">
+                            <input type="date" id="goalTargetDate" required>
+                            <i class="fas fa-calendar input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-plus"></i>
+                            إضافة الهدف
+                        </button>
+                        <button type="button" class="btn secondary" onclick="closeModal('addGoalModal')">
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loan Application Modal -->
+    <div class="modal large" id="loanApplicationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>طلب قرض</h3>
+                <button class="close-btn" onclick="closeModal('loanApplicationModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loanApplicationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loanRequestAmount">مبلغ القرض المطلوب (دينار)</label>
+                            <div class="input-group">
+                                <input type="number" id="loanRequestAmount" placeholder="10000" min="1000" max="100000" step="100" required>
+                                <i class="fas fa-coins input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loanType">نوع القرض</label>
+                            <select id="loanType" class="form-control" required>
+                                <option value="">اختر نوع القرض</option>
+                                <option value="شخصي">شخصي</option>
+                                <option value="سيارة">سيارة</option>
+                                <option value="منزل">منزل</option>
+                                <option value="زواج">زواج</option>
+                                <option value="تعليم">تعليم</option>
+                                <option value="تجاري">تجاري</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loanPurpose">سبب التمويل</label>
+                        <textarea id="loanPurpose" placeholder="وصف مختصر لسبب طلب القرض" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullNameArabic">الاسم الكامل بالعربية</label>
+                            <div class="input-group">
+                                <input type="text" id="fullNameArabic" placeholder="الاسم الكامل" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fullNameEnglish">الاسم الكامل بالإنجليزية</label>
+                            <div class="input-group">
+                                <input type="text" id="fullNameEnglish" placeholder="Full Name" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nationalId">رقم الهوية أو جواز السفر</label>
+                            <div class="input-group">
+                                <input type="text" id="nationalId" placeholder="1234567890" required>
+                                <i class="fas fa-id-card input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dateOfBirth">تاريخ الميلاد</label>
+                            <div class="input-group">
+                                <input type="date" id="dateOfBirth" required>
+                                <i class="fas fa-birthday-cake input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="monthlySalary">صافي الراتب الشهري (دينار)</label>
+                            <div class="input-group">
+                                <input type="number" id="monthlySalary" placeholder="1000" min="300" step="10" required>
+                                <i class="fas fa-money-bill-wave input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalAssets">إجمالي الأصول (دينار)</label>
+                            <div class="input-group">
+                                <input type="number" id="totalAssets" placeholder="50000" min="0" step="100" required>
+                                <i class="fas fa-home input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loanContactPhone">رقم الهاتف</label>
+                            <div class="input-group">
+                                <input type="tel" id="loanContactPhone" placeholder="07XXXXXXXX" required>
+                                <i class="fas fa-phone input-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loanContactEmail">البريد الإلكتروني</label>
+                            <div class="input-group">
+                                <input type="email" id="loanContactEmail" placeholder="example@email.com" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary large">
+                            <i class="fas fa-paper-plane"></i>
+                            تقديم طلب القرض
+                        </button>
+                        <button type="button" class="btn secondary large" onclick="closeModal('loanApplicationModal')">
+                            إلغاء
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>إعدادات الحساب</h3>
+                <button class="close-btn" onclick="closeModal('settingsModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>المعلومات الشخصية</h4>
+                    <div class="form-group">
+                        <label for="settingsFullName">الاسم الكامل</label>
+                        <div class="input-group">
+                            <input type="text" id="settingsFullName" placeholder="الاسم الكامل">
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsEmail">البريد الإلكتروني</label>
+                        <div class="input-group">
+                            <input type="email" id="settingsEmail" placeholder="example@email.com">
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsPhone">رقم الهاتف</label>
+                        <div class="input-group">
+                            <input type="tel" id="settingsPhone" placeholder="07XXXXXXXX">
+                            <i class="fas fa-phone input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h4>الإعدادات المالية</h4>
+                    <div class="form-group">
+                        <label for="settingsMonthlySalary">الراتب الشهري (دينار)</label>
+                        <div class="input-group">
+                            <input type="number" id="settingsMonthlySalary" placeholder="1000" min="0" step="10">
+                            <i class="fas fa-money-bill-wave input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="settingsHideValues">
+                            <span class="checkmark"></span>
+                            إخفاء القيم المالية افتراضياً
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i>
+                        حفظ الإعدادات
+                    </button>
+                    <button type="button" class="btn secondary" onclick="closeModal('settingsModal')">
+                        إلغاء
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Messages -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMessageText">تم بنجاح!</span>
+    </div>
+
+    <!-- Error Messages -->
+    <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorMessageText">حدث خطأ!</span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content-overlay">
+            <div class="loading-spinner-overlay"></div>
+            <div class="loading-text-overlay" id="loadingText">جاري التحميل...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

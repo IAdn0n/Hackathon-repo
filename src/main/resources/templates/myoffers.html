@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Offers</title>
+</head>
+<body>
+
+<h2>Available Offers</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Offer ID</th>
+            <th>Product ID</th>
+            <th>Description</th>
+            <th>Rate (%)</th>
+            <th>Offer Amount</th>
+            <th>Fee</th>
+            <th>Terms</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="offer : ${offers}">
+            <td th:text="${offer.offerId}"></td>
+            <td th:text="${offer.productId}"></td>
+            <td th:text="${offer.description}"></td>
+            <td th:text="${offer.rate}"></td>
+            <td th:text="${offer.offerAmount}"></td>
+            <td th:text="${offer.fee}"></td>
+            <td th:text="${offer.terms}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<h3>Navigation</h3>
+<ul>
+    <li><a th:href="@{'/accounts/' + ${user.userId}}">My Accounts</a></li>
+    <li><a th:href="@{/branches}">Branches</a></li>
+    <li><a th:href="@{/FX}">Foreign Exchange</a></li>
+    <li><a th:href="@{/loans}">Loans</a></li>
+    <li><a th:href="@{/products}">Products</a></li>
+    <li><a th:href="@{'/offers/' + ${user.userId}}">Offers</a></li>
+</ul>
+</body>
+</html>

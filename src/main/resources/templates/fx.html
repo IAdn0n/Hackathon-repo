@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Foreign Exchange Rates</title>
+</head>
+<body>
+
+<h2>Foreign Exchange Rates</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Source Currency</th>
+            <th>Target Currency</th>
+            <th>Conversion Value</th>
+            <th>Inverse Conversion Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="fx : ${fxList}">
+            <td th:text="${fx.sourceCurrency}"></td>
+            <td th:text="${fx.targetCurrency}"></td>
+            <td th:text="${fx.conversionValue}"></td>
+            <td th:text="${fx.inverseConversionValue}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<h3>Navigation</h3>
+<ul>
+    <li><a th:href="@{'/accounts/' + ${user.userId}}">My Accounts</a></li>
+    <li><a th:href="@{/branches}">Branches</a></li>
+    <li><a th:href="@{/FX}">Foreign Exchange</a></li>
+    <li><a th:href="@{/loans}">Loans</a></li>
+    <li><a th:href="@{/products}">Products</a></li>
+    <li><a th:href="@{'/offers/' + ${user.userId}}">Offers</a></li>
+</ul>
+
+</body>
+</html>

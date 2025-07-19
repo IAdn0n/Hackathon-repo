@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+
+<h2>Available Loan Products</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Max Amount</th>
+            <th>Max Loan Period (Months)</th>
+            <th>interest rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.productCommercialName}"></td>
+            <td th:text="${product.productDescription}"></td>
+            <td th:text="${product.maxAmount}"></td>
+            <td th:text="${product.maxLoanPeriod}"></td>
+            <td th:text="${product.startingInterestRate}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<h3>Navigation</h3>
+<ul>
+    <li><a th:href="@{'/accounts/' + ${user.userId}}">My Accounts</a></li>
+    <li><a th:href="@{/branches}">Branches</a></li>
+    <li><a th:href="@{/FX}">Foreign Exchange</a></li>
+    <li><a th:href="@{/loans}">Loans</a></li>
+    <li><a th:href="@{/products}">Products</a></li>
+    <li><a th:href="@{'/offers/' + ${user.userId}}">Offers</a></li>
+</ul>
+
+</body>
+</html>
