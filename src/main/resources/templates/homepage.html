@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابك - Hasabak | منصة مالية أردنية موحدة</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Financial Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts for Arabic Support -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Page -->
+    <section class="landing" id="landingPage">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>منصة مالية أردنية موحدة</span>
+                </div>
+                <h1 class="hero-title">إدارة أموالك بذكاء مع <span class="highlight">حسابك</span></h1>
+                <p class="hero-description">
+                    منصة متطورة لإدارة جميع حساباتك المصرفية في مكان واحد. 
+                    تحليل مالي ذكي، تتبع المصروفات، وعروض قروض حصرية من البنوك الأردنية.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn primary large">
+                        <i class="fas fa-rocket"></i>
+                        ابدأ الآن 
+                    </a>
+                    <a href="/login" class="btn secondary large">
+                        <i class="fas fa-sign-in-alt"></i>
+                        تسجيل الدخول
+                    </a>
+                    <!--</button>-->
+
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">19+</div>
+                        <div class="stat-label">بنك أردني</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">آمان وحماية</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">دعم فني</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card main-card">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line"></i>
+                        <span>نظرة عامة</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="balance-display">
+                            <div class="balance-amount">12,450 دينار</div>
+                            <div class="balance-change positive">+2.5%</div>
+                        </div>
+                        <div class="mini-chart">
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 40%"></div>
+                                <div class="bar" style="height: 60%"></div>
+                                <div class="bar" style="height: 80%"></div>
+                                <div class="bar active" style="height: 100%"></div>
+                                <div class="bar" style="height: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-card secondary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-text">حماية عالية</div>
+                </div>
+                <div class="hero-card tertiary-card">
+                    <div class="card-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="card-text">سهولة الاستخدام</div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Success Messages -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span id="successMessageText">تم بنجاح!</span>
+    </div>
+
+    <!-- Error Messages -->
+    <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorMessageText">حدث خطأ!</span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content-overlay">
+            <div class="loading-spinner-overlay"></div>
+            <div class="loading-text-overlay" id="loadingText">جاري التحميل...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

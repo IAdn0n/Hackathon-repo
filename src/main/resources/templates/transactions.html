@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+</head>
+<body>
+
+<h2>Transactions</h2>
+
+<table border="1">
+    <tr>
+        <th>Transaction ID</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Debtor Name</th>
+        <th>Debtor Account ID</th>
+        <th>Creditor Name</th>
+        <th>Creditor Account ID</th>
+        <th>Date</th>
+    </tr>
+
+    <tr th:each="transaction : ${transactions}">
+        <td th:text="${transaction.transactionId}">TX123</td>
+        <td th:text="${transaction.amount}">100.00</td>
+        <td th:text="${transaction.transactionType}">Credit</td>
+        <td th:text="${transaction.debtorName}">John Doe</td>
+        <td th:text="${transaction.debtorAccountId}">ACC123</td>
+        <td th:text="${transaction.creditorName}">Jane Smith</td>
+        <td th:text="${transaction.creditorAccountId}">ACC456</td>
+        <td th:text="${transaction.date}">2025-07-18</td>
+    </tr>
+
+</table>
+
+<a href="/">Back to Home</a>
+
+</body>
+</html>
